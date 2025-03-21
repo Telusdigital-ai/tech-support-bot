@@ -235,7 +235,7 @@ def root():
         logger.info("POST request received at root endpoint")
         return jsonify({"message": "POST request received but not handled here."}), 200
     logger.info("GET request received at root endpoint")
-    return "Welcome to the Tech Support Bot!"
+    return "Incident_form.html"
 
 @app.route("/incident-form", methods=["GET"])
 def serve_incident_form():
