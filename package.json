@@ -1,0 +1,14 @@
+{
+  "name": "dashboard-app",
+  "version": "1.0.0",
+  "description": "ServiceNow Incident Dashboard",
+  "main": "app3.py",
+  "scripts": {
+    "start": "python app3.py"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
