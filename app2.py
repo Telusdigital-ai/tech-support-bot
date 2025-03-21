@@ -266,10 +266,10 @@ def google_chat_webhook():
         if "@tech-support" in message_text:
             logger.info("@tech-support mention detected")
             
-           base_url = "https://tech-support-bot-1.onrender.com"
-           full_form_url = f"{base_url}/incident-form"
+            # Fix the indentation here - use 12 spaces or 3 tabs consistently
+            base_url = "https://tech-support-bot-1.onrender.com"  # Your Render URL
+            full_form_url = f"{base_url}/incident-form"
            
-            
             response_data = {
                 "cardsV2": [{
                     "cardId": "incident_card",
@@ -287,8 +287,7 @@ def google_chat_webhook():
                                                 "url": full_form_url
                                             }
                                         }
-                                    }
-                                    ]
+                                    }]
                                 }
                             }]
                         }]
