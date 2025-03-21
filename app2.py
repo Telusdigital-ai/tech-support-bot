@@ -25,7 +25,8 @@ SERVICENOW_PASSWORD = "xH6cF@Bml-4H"
 GOOGLE_CHAT_WEBHOOK = "https://chat.googleapis.com/v1/spaces/AAAAYs9cl9I/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=p1k1CtHPjN13dp2ByQi9hWditYfXmGquUJ9nv7-2HZA"
 
 # Ensure the template folder path is correct
-app = Flask(__name__)
+app = Flask(__name__,template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'))
+
 
 def get_assignment_group_sys_id(group_name):
     """Get the sys_id for an assignment group"""
@@ -229,12 +230,17 @@ def submit_incident():
 
 @app.route("/", methods=["GET", "POST"])
 def root():
-    """Handles root endpoint"""
     if request.method == "POST":
         logger.info("POST request received at root endpoint")
         return jsonify({"message": "POST request received but not handled here."}), 200
     logger.info("GET request received at root endpoint")
-    return render_template(os.path.join(os.path.dirname(__file__), 'templates', 'incident_form.html'))
+    try:
+        logger.info(f"Current working directory: {os.getcwd()}")
+        logger.info(f"Template folder path: {app.template_folder}")
+        return render_template("incident_form.html")
+    except Exception as e:
+        logger.error(f"Error rendering template: {str(e)}")
+        return str(e), 500
 
 @app.route("/incident-form", methods=["GET"])
 def serve_incident_form():
