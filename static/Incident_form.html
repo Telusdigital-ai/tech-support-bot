@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TELUS Digital Incident Management</title>
+    <style>
+        input[type="email"] {
+             width: 100%;
+             padding: 8px;
+             border: 1px solid #ddd;
+             border-radius: 3px;
+             box-sizing: border-box;
+             font-size: 14px;
+             }
+
+        input[type="email"]:invalid {
+              border-color: #ff6b6b;
+             }
+
+        input[type="email"]:valid {
+              border-color: #66CC00;
+            }
+
+        .form-group span {
+               margin-top: 5px;
+               display: block;
+            }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .page-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .logo-container {
+            background-color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            width: 100%;
+            overflow: hidden;
+            height: 60px;
+        }
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            max-height: 100px;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            color: #4B286D;
+            border-bottom: 2px solid #66CC00;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 28px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: normal;
+        }
+        input[type="text"], input[type="email"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') no-repeat right 8px center;
+            background-size: 16px;
+            padding-right: 24px;
+        }
+        .submit-btn {
+            background-color: #66CC00;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background-color: #59B200;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 50%;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease-in-out;
+        }
+
+        .success-icon {
+            text-align: center;
+            font-size: 48px;
+            color: #66CC00;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .success-message h2 {
+            color: #4B286D;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .modal-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .new-ticket-btn {
+            background-color: #66CC00;
+            color: white;
+        }
+
+        .close-btn {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-btn:hover {
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='telus_digital_logo.png') }}" alt="TELUS Digital Logo" class="logo">
+        </div>
+        <div class="container">
+            <h1>Create New Support Ticket</h1>
+            <form action="/submit" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="number">Number:</label>
+                    <input type="text" id="number" name="number" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="caller">Caller (Email):</label>
+                    <input type="email" id="caller" name="caller" required 
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                           placeholder="Enter valid email address"
+                           oninvalid="this.setCustomValidity('Please enter a valid email address')"
+                           oninput="this.setCustomValidity('')">
+                    <span id="emailError" style="color: red; display: none; font-size: 12px;">Please enter a valid email address</span>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category">
+                        <option value="inquiry">Inquiry / Help</option>
+                        <option value="software">Software</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="network">Network</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <select id="state" name="state">
+                        <option value="new">New</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="on-hold">On Hold</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority:</label>
+                    <select id="priority" name="priority">
+                        <option value="1">1 - Critical</option>
+                        <option value="2">2 - High</option>
+                        <option value="3">3 - Moderate</option>
+                        <option value="4">4 - Low</option>
+                        <option value="5">5 - Planning</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="assignment_group">Assignment Group:</label>
+                    <select id="assignment_group" name="assignment_group">
+                        <option value="GTS">GTS</option>
+                        <option value="FTS">FTS</option>
+                        <option value="Experts engine">Experts engine</option>
+                        <option value="Sourcing 2.0">Sourcing 2.0</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="short_description">Short Description:</label>
+                    <input type="text" id="short_description" name="short_description" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="file">Attach File (Optional):</label>
+                    <input type="file" id="file" name="file">
+                </div>
+                <button type="submit" class="submit-btn">Submit Ticket</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <div class="success-message">
+                <h2>Ticket Created Successfully!</h2>
+                <p>Your incident ticket has been created.</p>
+                <p id="ticketNumber" style="font-weight: bold; color: #4B286D; font-size: 18px;"></p>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn new-ticket-btn" onclick="createNewTicket()">Create Another Ticket</button>
+                <button class="modal-btn close-btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-generate incident number
+        document.getElementById('number').value = 'INC' + Math.floor(Math.random() * 1000000).toString().padStart(7, '0');
+    
+        // Email validation
+        function isValidEmail(email) {
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailRegex.test(email);
+        }
+    
+        document.getElementById('caller').addEventListener('input', function() {
+            const emailInput = this;
+            const emailError = document.getElementById('emailError');
+            
+            if (!isValidEmail(emailInput.value)) {
+                emailError.style.display = 'block';
+                emailInput.setCustomValidity('Please enter a valid email address');
+            } else {
+                emailError.style.display = 'none';
+                emailInput.setCustomValidity('');
+            }
+        });
+    
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('caller');
+            const emailError = document.getElementById('emailError');
+    
+            if (!isValidEmail(emailInput.value)) {
+                emailError.style.display = 'block';
+                emailInput.focus();
+                return;
+            }
+            
+            var formData = new FormData(this);
+            
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccessModal(data.incident_number);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error submitting form: ' + error);
+            });
+        });
+    
+        function showSuccessModal(ticketNumber) {
+            document.getElementById('ticketNumber').textContent = 'Ticket Number: ' + ticketNumber;
+            document.getElementById('successModal').style.display = 'block';
+        }
+    
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            window.close();
+        }
+    
+        function createNewTicket() {
+            document.querySelector('form').reset();
+            document.getElementById('number').value = 'INC' + Math.floor(Math.random() * 1000000).toString().padStart(7, '0');
+            document.getElementById('successModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
