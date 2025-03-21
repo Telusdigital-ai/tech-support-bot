@@ -237,7 +237,7 @@ def root():
     try:
         logger.info(f"Current working directory: {os.getcwd()}")
         logger.info(f"Template folder path: {app.template_folder}")
-        return render_template("incident_form.html")
+        return render_template("Incident_form.html")
     except Exception as e:
         logger.error(f"Error rendering template: {str(e)}")
         return str(e), 500
