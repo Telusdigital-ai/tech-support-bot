@@ -250,7 +250,7 @@ def serve_incident_form():
         return render_template("incident_form.html")
     except Exception as e:
         logger.error(f"Error serving incident form: {str(e)}\n{traceback.format_exc()}")
-        return jsonify({"error": "Internal server error"}), 500
+        return render_template("incident_form.html")  # Try direct template rendering
 
 
 
@@ -272,9 +272,9 @@ def google_chat_webhook():
         if "@tech-support" in message_text:
             logger.info("@tech-support mention detected")
             
-            # Fix the indentation here - use 12 spaces or 3 tabs consistently
+            # Update this part
             base_url = "https://tech-support-bot-1.onrender.com"  # Your Render URL
-            full_form_url = f"{base_url}/incident-form"
+            full_form_url = f"{base_url}/"  # Change to root URL
            
             response_data = {
                 "cardsV2": [{
@@ -310,7 +310,6 @@ def google_chat_webhook():
     except Exception as e:
         logger.error(f"Error in webhook: {str(e)}\n{traceback.format_exc()}")
         return jsonify({"text": "I'm here! But encountered an error. Please try again."}), 200
-
 
 @app.route("/health", methods=["GET"])
 def health_check():
