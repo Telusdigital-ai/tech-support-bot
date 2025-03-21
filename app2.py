@@ -234,7 +234,7 @@ def root():
         logger.info("POST request received at root endpoint")
         return jsonify({"message": "POST request received but not handled here."}), 200
     logger.info("GET request received at root endpoint")
-    return render_template("incident_form.html")
+    return render_template(os.path.join(os.path.dirname(__file__), 'templates', 'incident_form.html'))
 
 @app.route("/incident-form", methods=["GET"])
 def serve_incident_form():
