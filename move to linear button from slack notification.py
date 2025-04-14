@@ -13,7 +13,7 @@ app = Flask(__name__)
 # Direct configuration values
 LINEAR_API_KEY = "lin_api_Zorsfoc5Jw9V5poIWeft1UMyYhlAtAHDUIL51WE7"
 LINEAR_TEAM_ID = "d28c9671-69c6-4305-aca7-3fd4196cb345"
-SLACK_BOT_TOKEN = "xoxb-8461790309746-8460948536790-flly6zCauNBq10q4JOVzpjmt"
+SLACK_BOT_TOKEN = "xoxb-8461790309746-8460948536790-8COIT7GAuclUmziViPQGVcTK"
 SERVICENOW_URL = "https://dev278567.service-now.com/"
 SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
 
