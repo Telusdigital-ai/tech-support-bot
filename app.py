@@ -15,7 +15,7 @@ LINEAR_API_KEY = "lin_api_Zorsfoc5Jw9V5poIWeft1UMyYhlAtAHDUIL51WE7"
 LINEAR_TEAM_ID = "d28c9671-69c6-4305-aca7-3fd4196cb345"
 SLACK_BOT_TOKEN = "xoxb-8461790309746-8460948536790-mVMvwkOfTd2P2Mw0HeIwiB7H"
 SERVICENOW_URL = "https://dev278567.service-now.com/"
-SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
+SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
 
 # Set up logging
 def setup_logging():
