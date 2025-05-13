@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ServiceNow Configuration
-SERVICENOW_INSTANCE = "https://dev220639.service-now.com"
+SERVICENOW_INSTANCE = "dev220639.service-now.com"
 SERVICENOW_USER = "admin"
 SERVICENOW_PASSWORD = "vn-5fw!JX0JY"
 
