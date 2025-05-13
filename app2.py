@@ -17,9 +17,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ServiceNow Configuration
-SERVICENOW_INSTANCE = "dev278567.service-now.com"
+SERVICENOW_INSTANCE = "https://dev220639.service-now.com"
 SERVICENOW_USER = "admin"
-SERVICENOW_PASSWORD = "xH6cF@Bml-4H"
+SERVICENOW_PASSWORD = "vn-5fw!JX0JY"
 
 # Google Chat Configuration
 GOOGLE_CHAT_WEBHOOK = "https://chat.googleapis.com/v1/spaces/AAAAYs9cl9I/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=p1k1CtHPjN13dp2ByQi9hWditYfXmGquUJ9nv7-2HZA"
